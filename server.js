@@ -13,10 +13,12 @@ import clientRoute from "./app/routes/client.route.js";
 import contributionRoute from "./app/routes/contribution.route.js";
 import planRoute from "./app/routes/plan.route.js";
 import productRoute from "./app/routes/product.route.js";
+import withdrawRoute from "./app/routes/withdraw.route.js";
 app.use("/api/clients", clientRoute);
 app.use("/api/contributions", contributionRoute);
 app.use("/api/plans", planRoute);
 app.use("/api/products", productRoute);
+app.use("/api/withdraw", withdrawRoute);
 
 // Setting environment variables
 dotenv.config();
@@ -30,7 +32,6 @@ app.use(
 );
 app.use(express.json());
 app.use(cors());
-app.use(express.static("public"));
 
 // Setting route to documentation
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

@@ -110,4 +110,5 @@ export default {
   updateProduct,
   getProductBySUSEP,
   getProduct,
+  getProductByName,
 };

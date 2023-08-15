@@ -41,10 +41,11 @@ async function deleteProduct(req, res, next) {
 
 async function updateProduct(req, res, next) {
   try {
-    const data = req.body;
+    let data = req.body;
     if (!data.id) {
       return res.status(422).json({ message: "id is missing" });
     }
+    data = productValidation.schemaValidationUpdate(data);
     res.send(await productService.updateProduct(data));
   } catch (err) {
     next(err);

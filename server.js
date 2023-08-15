@@ -9,12 +9,14 @@ import bodyParser from "body-parser";
 const app = express();
 
 // Routes
-import BoletosRouter from "./routes/boleto.route.js";
-app.use("/boletos", BoletosRouter);
-import LotesRouter from "./routes/lote.route.js";
-app.use("/lote", LotesRouter);
-import UploadRouter from "./routes/upload.route.js";
-app.use("/upload", UploadRouter);
+import clientRoute from "./app/routes/client.route.js";
+import contributionRoute from "./app/routes/contribution.route.js";
+import planRoute from "./app/routes/plan.route.js";
+import productRoute from "./app/routes/product.route.js";
+app.use("/api/clients", clientRoute);
+app.use("/api/contributions", contributionRoute);
+app.use("/api/plans", planRoute);
+app.use("/api/products", productRoute);
 
 // Setting environment variables
 dotenv.config();

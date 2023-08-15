@@ -1,8 +1,8 @@
 import planRepository from "../../api/v1/repositories/plan.repository.js";
+import planValidation from "../validations/plan.validation.js";
 
 async function createPlan(data) {
-  const plan = await getPlanByClientProduct(data);
-  if (plan.length > 0) {
+  if (!planValidation.businessValidationCreate(data)) {
     return { status: 422, message: "Plan alredy exist" };
   } else {
     return await planRepository.createPlan(data);
@@ -18,8 +18,7 @@ async function getPlan(id) {
 }
 
 async function deletePlan(id) {
-  const client = await planRepository.getPlan(id);
-  if (client.aporte > 0) {
+  if (!planValidation.businessValidationDelete(id)) {
     return { status: 422, message: "Plan has funds" };
   } else {
     return await planRepository.deletePlan(id);

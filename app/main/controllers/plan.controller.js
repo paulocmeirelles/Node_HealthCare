@@ -41,10 +41,11 @@ async function deletePlan(req, res, next) {
 
 async function updatePlan(req, res, next) {
   try {
-    const data = req.body;
-    if (!data.cpf) {
-      return res.status(422).json({ message: "cpf is missing" });
+    let data = req.body;
+    if (!data.id) {
+      return res.status(422).json({ message: "id is missing" });
     }
+    data = await planValidation.schemaValidationUpdate(data);
     res.send(await planService.updatePlan(data));
   } catch (err) {
     next(err);

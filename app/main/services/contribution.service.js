@@ -1,7 +1,17 @@
 import contributionRepository from "../../api/v1/repositories/contribution.repository.js";
+import contributionValidation from "../validations/contribution.validation.js";
 
 async function createContribution(data) {
-  return await contributionRepository.createContribution(data);
+  if (
+    contributionValidation.businessValidationToCreate(
+      data.idPlano,
+      data.valorAporte
+    )
+  ) {
+    return await contributionRepository.createContribution(data);
+  } else {
+    return { status: 422, message: "Values are not correct" };
+  }
 }
 
 async function getContributions() {

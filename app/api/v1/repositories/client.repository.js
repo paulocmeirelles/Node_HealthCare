@@ -26,18 +26,6 @@ async function getClients() {
   }
 }
 
-async function getClientsByName(name) {
-  try {
-    return await Client.findOne({
-      where: {
-        nome: name,
-      },
-    });
-  } catch (err) {
-    throw err;
-  }
-}
-
 async function getClientByCPF(cpf) {
   try {
     return await Client.findOne({
@@ -105,5 +93,5 @@ export default {
   getClients,
   deleteClient,
   updateClient,
-  getClientsByName,
+  getClientByCPF,
 };

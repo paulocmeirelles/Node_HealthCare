@@ -35,6 +35,18 @@ async function getPlan(id) {
   }
 }
 
+async function getPlanByIdClient(id) {
+  try {
+    return await Plan.findOne({
+      where: {
+        idCliente: id,
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
 async function getPlanByClientProduct(data) {
   try {
     return await Plan.findOne({
@@ -55,18 +67,6 @@ async function getPlanByIdProduct(id) {
     return await Plan.findOne({
       where: {
         idProduto: id,
-      },
-    });
-  } catch (err) {
-    throw err;
-  }
-}
-
-async function getPlanByIdPlan(id) {
-  try {
-    return await Plan.findOne({
-      where: {
-        idPlan: id,
       },
     });
   } catch (err) {
@@ -116,8 +116,8 @@ export default {
   getPlans,
   deletePlan,
   updatePlan,
-  getPlanByIdPlan,
   getPlanByIdProduct,
   getPlan,
   getPlanByClientProduct,
+  getPlanByIdClient,
 };

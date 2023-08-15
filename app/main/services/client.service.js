@@ -1,9 +1,8 @@
 import clientRepository from "../../api/v1/repositories/client.repository.js";
-import planRepository from "../../api/v1/repositories/plan.repository.js";
+import clientValidation from "../validations/client.validation.js";
 
 async function createClient(data) {
-  const client = await getClientByCPF(data.cpf);
-  if (client.length > 0) {
+  if (!clientValidation.businessValidationToCreate(data.cpf)) {
     return { status: 422, message: "Client already exist!" };
   } else {
     return await clientRepository.createClient(data);
@@ -18,13 +17,8 @@ async function getClient(id) {
   return await clientRepository.getClient(id);
 }
 
-async function getClientByName(name) {
-  return await clientRepository.getClientByName(name);
-}
-
 async function deleteClient(id) {
-  const plans = await planRepository.getPlanByIdClient(id);
-  if (plans.length > 0) {
+  if (!clientValidation.businessValidationDelete(id)) {
     return { status: 422, message: "Client own active plans" };
   } else {
     return await clientRepository.deleteClient(id);
@@ -41,5 +35,4 @@ export default {
   getClient,
   deleteClient,
   updateClient,
-  getClientByName,
 };

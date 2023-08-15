@@ -1,9 +1,8 @@
 import productRepository from "../../api/v1/repositories/product.repository.js";
-import planRepository from "../../api/v1/repositories/plan.repository.js";
+import productValidation from "../validations/product.validation.js";
 
 async function createProduct(data) {
-  const product = await getProductByName(data.nome);
-  if (product.length > 0) {
+  if (!productValidation.businessValidationCreate(data.nome)) {
     return { status: 422, message: "Product alredy exist" };
   } else {
     return await productRepository.createProduct(data);
@@ -23,8 +22,7 @@ async function getProductByName(nome) {
 }
 
 async function deleteProduct(id) {
-  const plan = await planRepository.getPlanByIdProduct(id);
-  if (plan.length > 0) {
+  if (!productValidation.businessValidationDelete(id)) {
     return { status: 422, message: "Product has plans activated" };
   } else {
     return await productRepository.deleteProduct(id);

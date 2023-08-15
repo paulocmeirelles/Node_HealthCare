@@ -41,10 +41,11 @@ async function deleteClient(req, res, next) {
 
 async function updateClient(req, res, next) {
   try {
-    const data = req.body;
+    let data = req.body;
     if (!data.cpf) {
       return res.status(422).json({ message: "cpf is missing" });
     }
+    data = await clientValidation.schemaValidationUpdate(data);
     res.send(await clientService.updateClient(data));
   } catch (err) {
     next(err);

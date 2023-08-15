@@ -24,6 +24,7 @@ const Plan = pg.define(
     },
     dataDaContratacao: {
       type: "TIMESTAMP",
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       allowNull: false,
     },
     idadeDeAposentadoria: {

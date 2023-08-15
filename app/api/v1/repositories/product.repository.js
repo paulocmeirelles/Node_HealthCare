@@ -26,7 +26,7 @@ async function getProducts() {
   }
 }
 
-async function getProductById(id) {
+async function getProduct(id) {
   try {
     return await Product.findByPk(id);
   } catch (err) {
@@ -109,5 +109,5 @@ export default {
   deleteProduct,
   updateProduct,
   getProductBySUSEP,
-  getProductById,
+  getProduct,
 };

@@ -13,6 +13,7 @@ const Product = pg.define(
     nome: {
       type: Sequelize.STRING,
       allowNull: false,
+      unique: true,
     },
     susep: {
       type: Sequelize.STRING,

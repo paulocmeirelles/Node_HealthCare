@@ -1,4 +1,5 @@
 import Plan from "../../../main/models/plan.model.js";
+import { Op } from "sequelize";
 
 async function createPlan(data) {
   try {
@@ -26,7 +27,7 @@ async function getPlans() {
   }
 }
 
-async function getPlanById(id) {
+async function getPlan(id) {
   try {
     return await Plan.findByPk(id);
   } catch (err) {
@@ -34,11 +35,26 @@ async function getPlanById(id) {
   }
 }
 
-async function getPlanByIdClient(id) {
+async function getPlanByClientProduct(data) {
   try {
     return await Plan.findOne({
       where: {
-        idCliente: id,
+        [Op.and]: [
+          { idCliente: data.idCliente },
+          { idProduto: data.idProduto },
+        ],
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getPlanByIdProduct(id) {
+  try {
+    return await Plan.findOne({
+      where: {
+        idProduto: id,
       },
     });
   } catch (err) {
@@ -88,7 +104,7 @@ async function updatePlan(data) {
         },
       }
     );
-    return await getPlanByCPF(data.cpf);
+    return await getPlan(data.id);
   } catch (err) {
     throw err;
   }
@@ -101,6 +117,7 @@ export default {
   deletePlan,
   updatePlan,
   getPlanByIdPlan,
-  getPlanByIdClient,
-  getPlanById,
+  getPlanByIdProduct,
+  getPlan,
+  getPlanByClientProduct,
 };

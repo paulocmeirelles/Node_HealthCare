@@ -24,7 +24,7 @@ async function getContributions() {
   }
 }
 
-async function getContributionsById(id) {
+async function getContribution(id) {
   try {
     return await Contribution.findByPk(id);
   } catch (err) {
@@ -79,7 +79,7 @@ export default {
   createContributions,
   getContributions,
   deleteContribution,
-  getContributionsById,
+  getContribution,
   getContributionByIdPlan,
   getContributionsByIdClient,
 };

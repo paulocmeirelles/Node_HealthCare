@@ -1,44 +1,45 @@
 import clientRepository from "../../api/v1/repositories/client.repository.js";
+import planRepository from "../../api/v1/repositories/plan.repository.js";
 
-async function createLote(data) {
-  const lote = await getLoteByName(data.nome);
-  if (lote.length > 0) {
-    return { status: 422, message: "Lote já existe" };
+async function createClient(data) {
+  const client = await getClientByCPF(data.cpf);
+  if (client.length > 0) {
+    return { status: 422, message: "Client already exist!" };
   } else {
-    return await loteRepository.createLote(data);
+    return await clientRepository.createClient(data);
   }
 }
 
-async function getLotes() {
-  return await loteRepository.getLotes();
+async function getClients() {
+  return await clientRepository.getClients();
 }
 
-async function getLote(id) {
-  return await loteRepository.getLote(id);
+async function getClient(id) {
+  return await clientRepository.getClient(id);
 }
 
-async function getLoteByName(nome) {
-  return await loteRepository.getLoteByName(nome);
+async function getClientByName(name) {
+  return await clientRepository.getClientByName(name);
 }
 
-async function deleteLote(id) {
-  const boletos = await boletoRepository.getBoletosByLote(id);
-  if (boletos.length > 0) {
-    return { status: 422, message: "Lote possui boletos" };
+async function deleteClient(id) {
+  const plans = await planRepository.getPlanByIdClient(id);
+  if (plans.length > 0) {
+    return { status: 422, message: "Client own active plans" };
   } else {
-    return await loteRepository.deleteLote(id);
+    return await clientRepository.deleteClient(id);
   }
 }
 
-async function updateLote(data) {
-  return await loteRepository.updateLote(data);
+async function updateClient(data) {
+  return await clientRepository.updateClient(data);
 }
 
 export default {
-  createLote,
-  getLotes,
-  getLote,
-  deleteLote,
-  updateLote,
-  getLoteByName,
+  createClient,
+  getClients,
+  getClient,
+  deleteClient,
+  updateClient,
+  getClientByName,
 };

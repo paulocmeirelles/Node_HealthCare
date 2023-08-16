@@ -19,7 +19,7 @@ async function createProducts(json) {
 async function getProducts() {
   try {
     return await Product.findAll({
-      where: { activate: true },
+      where: { active: true },
     });
   } catch (err) {
     throw err;
@@ -62,7 +62,7 @@ async function deleteProduct(id) {
   try {
     await Product.update(
       {
-        activate: false,
+        active: false,
       },
       {
         where: {
@@ -89,6 +89,7 @@ async function updateProduct(data) {
         idadeDeSaida: data.idadeDeSaida,
         carenciaInicialDeResgate: data.carenciaInicialDeResgate,
         carenciaEntreResgates: data.carenciaEntreResgates,
+        active: data.active,
       },
       {
         where: {

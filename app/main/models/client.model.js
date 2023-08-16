@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import pg from "../../api/repositories/connectPG.js";
+import pg from "../../api/connectPG.js";
 
 const Client = pg.define(
   "clients",
@@ -44,6 +44,4 @@ const Client = pg.define(
   { timestamps: false }
 );
 
-Client.sync({ force: true });
-
-export default Boleto;
+export default Client;

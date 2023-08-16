@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import pg from "../../api/repositories/connectPG.js";
+import pg from "../../api/connectPG.js";
 
 const Plan = pg.define(
   "plans",
@@ -31,7 +31,7 @@ const Plan = pg.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    activate: {
+    active: {
       type: Sequelize.BOOLEAN,
       allowNull: true,
       defaultValue: true,
@@ -39,7 +39,5 @@ const Plan = pg.define(
   },
   { timestamps: false }
 );
-
-Plan.sync({ force: true });
 
 export default Plan;

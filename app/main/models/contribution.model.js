@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import pg from "../../api/repositories/connectPG.js";
+import pg from "../../api/connectPG.js";
 
 const Contribution = pg.define(
   "contributions",
@@ -35,7 +35,5 @@ const Contribution = pg.define(
   },
   { timestamps: false }
 );
-
-Contribution.sync({ force: true });
 
 export default Contribution;

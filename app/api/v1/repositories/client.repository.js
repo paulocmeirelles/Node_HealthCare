@@ -19,7 +19,7 @@ async function createClients(json) {
 async function getClients() {
   try {
     return await Client.findAll({
-      where: { activate: true },
+      where: { active: true },
     });
   } catch (err) {
     throw err;
@@ -50,7 +50,7 @@ async function deleteClient(cpf) {
   try {
     await Client.update(
       {
-        activate: false,
+        active: false,
       },
       {
         where: {

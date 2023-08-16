@@ -1,5 +1,5 @@
-import clientRepository from "../../api/v1/repositories/client.repository";
-import planRepository from "../../api/v1/repositories/plan.repository";
+import clientRepository from "../../api/v1/repositories/client.repository.js";
+import planRepository from "../../api/v1/repositories/plan.repository.js";
 
 function createClientValidation(data) {
   if (
@@ -19,8 +19,8 @@ function createClientValidation(data) {
 
 async function businessValidationToCreate(cpf) {
   const client = await clientRepository.getClientByCPF(cpf);
-  if (client.length > 0) {
-    return false;
+  if (client) {
+    return client.length > 0 ? false : true;
   } else {
     return true;
   }
@@ -28,8 +28,8 @@ async function businessValidationToCreate(cpf) {
 
 async function businessValidationDelete(id) {
   const plans = await planRepository.getPlanByIdClient(id);
-  if (plans.length > 0) {
-    return false;
+  if (plans) {
+    return plans.length > 0 ? false : true;
   } else {
     return true;
   }

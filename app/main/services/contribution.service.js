@@ -3,14 +3,14 @@ import contributionValidation from "../validations/contribution.validation.js";
 
 async function createContribution(data) {
   if (
-    contributionValidation.businessValidationToCreate(
+    !contributionValidation.businessValidationToCreate(
       data.idPlano,
       data.valorAporte
     )
   ) {
     return await contributionRepository.createContribution(data);
   } else {
-    return { status: 422, message: "Values are not correct" };
+    return { status: 400, message: "Values are not correct" };
   }
 }
 

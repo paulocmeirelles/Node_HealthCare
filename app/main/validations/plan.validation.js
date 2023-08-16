@@ -18,8 +18,8 @@ function createPlanValidation(data) {
 
 async function businessValidationDelete(id) {
   const plan = await planRepository.getPlan(id);
-  if (plan.aporte > 0) {
-    return false;
+  if (plan) {
+    return plan.aporte > 0 ? false : true;
   } else {
     return true;
   }
@@ -29,15 +29,18 @@ async function businessValidationCreate(data) {
   const plan = await planRepository.getPlanByClientProduct(data);
   const product = await productRepository.getProduct(data.idProduto);
   const client = await clientRepository.getClient(data.idCliente);
-
-  if (
-    plan.aporte > 0 ||
-    new Date() > new Date(product.expiracaoDeVenda) ||
-    product.valorMinimoAporteInicial <= data.aporte ||
-    planHelper.getAge(client.dataDeNascimento) >= product.idadeDeEntrada ||
-    planHelper.getAge(client.dataDeNascimento) < product.idadeDeSaida
-  ) {
-    return false;
+  if (plan && product && client) {
+    if (
+      plan.aporte > 0 ||
+      new Date() > new Date(product.expiracaoDeVenda) ||
+      product.valorMinimoAporteInicial <= data.aporte ||
+      planHelper.getAge(client.dataDeNascimento) >= product.idadeDeEntrada ||
+      planHelper.getAge(client.dataDeNascimento) < product.idadeDeSaida
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   } else {
     return true;
   }
@@ -46,6 +49,7 @@ async function businessValidationCreate(data) {
 async function schemaValidationUpdate(data) {
   const plan = await planRepository.getPlan(data.id);
   data.aporte ? data.aporte : (data.aporte = plan.aporte);
+  data.active ? data.active : (data.active = plan.active);
   data.idadeDeAposentadoria
     ? data.idadeDeAposentadoria
     : (data.idadeDeAposentadoria = plan.idadeDeAposentadoria);

@@ -3,7 +3,7 @@ import clientValidation from "../validations/client.validation.js";
 
 async function createClient(data) {
   if (!clientValidation.businessValidationToCreate(data.cpf)) {
-    return { status: 422, message: "Client already exist!" };
+    return { status: 400, message: "Client already exist!" };
   } else {
     return await clientRepository.createClient(data);
   }
@@ -19,7 +19,7 @@ async function getClient(id) {
 
 async function deleteClient(id) {
   if (!clientValidation.businessValidationDelete(id)) {
-    return { status: 422, message: "Client own active plans" };
+    return { status: 400, message: "Client own active plans" };
   } else {
     return await clientRepository.deleteClient(id);
   }

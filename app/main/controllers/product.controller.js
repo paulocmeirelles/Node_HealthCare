@@ -5,9 +5,9 @@ async function createProduct(req, res, next) {
   try {
     const data = req.body;
     if (!productValidation.createProductValidation(data)) {
-      return res.status(422).json({ message: "Missing variables" });
+      return res.status(400).json({ message: "Missing variables" });
     }
-    res.send(await productService.createProduct(data));
+    res.send({ id: (await productService.createProduct(data)).id });
   } catch (err) {
     next(err);
   }
@@ -43,9 +43,9 @@ async function updateProduct(req, res, next) {
   try {
     let data = req.body;
     if (!data.id) {
-      return res.status(422).json({ message: "id is missing" });
+      return res.status(400).json({ message: "id is missing" });
     }
-    data = productValidation.schemaValidationUpdate(data);
+    data = await productValidation.schemaValidationUpdate(data);
     res.send(await productService.updateProduct(data));
   } catch (err) {
     next(err);

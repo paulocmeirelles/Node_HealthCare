@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import pg from "../../api/repositories/connectPG.js";
+import pg from "../../api/connectPG.js";
 
 const Product = pg.define(
   "products",
@@ -47,7 +47,7 @@ const Product = pg.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    activate: {
+    active: {
       type: Sequelize.BOOLEAN,
       allowNull: true,
       defaultValue: true,
@@ -55,7 +55,5 @@ const Product = pg.define(
   },
   { timestamps: false }
 );
-
-Product.sync({ force: true });
 
 export default Product;

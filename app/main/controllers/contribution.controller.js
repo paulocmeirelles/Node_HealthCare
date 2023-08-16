@@ -5,9 +5,9 @@ async function createContribution(req, res, next) {
   try {
     const data = req.body;
     if (!contributionValidation.createContributionValidation(data)) {
-      return res.status(422).json({ message: "Missing variables" });
+      return res.status(400).json({ message: "Missing variables" });
     }
-    res.send(await contributionService.createContribution(data));
+    res.send({ id: (await contributionService.createContribution(data)).id });
   } catch (err) {
     next(err);
   }

@@ -1,23 +1,23 @@
 export const swaggerDocument = {
   swagger: "2.0",
   info: {
-    description: "Green Park API documentation",
+    description: "API Documentation Retirement Plan",
     version: "1.0.0",
-    title: "Green Park API documentation",
+    title: "API documentation",
   },
   host: "localhost:3000",
   tags: [
     {
-      name: "Lote",
-      description: "Lotes management",
+      name: "Client",
+      description: "Client management",
     },
   ],
   paths: {
-    "/lote": {
+    "/api/clients": {
       get: {
-        tags: ["lote"],
-        summary: "Get existing lotes",
-        description: "Get existing lote description",
+        tags: ["client"],
+        summary: "Get existing clients",
+        description: "Get existing client description",
         produces: ["application/json"],
         responses: {
           200: {
@@ -35,9 +35,9 @@ export const swaggerDocument = {
         },
       },
       post: {
-        tags: ["lote"],
-        summary: "Create a new lote",
-        description: "Create a new lote with the received parameters",
+        tags: ["client"],
+        summary: "Create a new client",
+        description: "Create a new client with the received parameters",
         consumes: ["application/json"],
         parameters: [
           {

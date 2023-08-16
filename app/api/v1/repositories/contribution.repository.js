@@ -1,5 +1,5 @@
 import Contribution from "../../../main/models/contribution.model.js";
-import { Sequelize } from "sequelize";
+import { fn, col } from "sequelize";
 
 async function createContribution(data) {
   try {
@@ -63,12 +63,7 @@ async function getBalance(id) {
       where: {
         idPlano: id,
       },
-      attributes: [
-        [
-          Sequelize.sequelize.fn("sum", Sequelize.sequelize.col("valorAporte")),
-          "total",
-        ],
-      ],
+      attributes: [[fn("sum", col("valorAporte")), "total"]],
       raw: true,
     });
   } catch (err) {

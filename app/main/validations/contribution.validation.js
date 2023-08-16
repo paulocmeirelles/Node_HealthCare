@@ -1,4 +1,5 @@
-import planRepository from "../../api/v1/repositories/plan.repository";
+import planRepository from "../../api/v1/repositories/plan.repository.js";
+import productRepository from "../../api/v1/repositories/product.repository.js";
 
 function createContributionValidation(data) {
   if (!data.idCliente || !data.idPlano || !data.valorAporte) {
@@ -10,10 +11,11 @@ function createContributionValidation(data) {
 
 async function businessValidationToCreate(id, aporte) {
   const plan = await planRepository.getPlan(id);
-  if (plan.aporte >= aporte) {
-    return true;
-  } else {
+  const product = await productRepository.getProduct(plan.idProduto);
+  if (parseFloat(aporte) <= parseFloat(product.valorMinimoAporteExtra)) {
     return false;
+  } else {
+    return true;
   }
 }
 

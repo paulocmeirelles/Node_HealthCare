@@ -3,7 +3,7 @@ import productValidation from "../validations/product.validation.js";
 
 async function createProduct(data) {
   if (!productValidation.businessValidationCreate(data.nome)) {
-    return { status: 422, message: "Product alredy exist" };
+    return { status: 400, message: "Product alredy exist" };
   } else {
     return await productRepository.createProduct(data);
   }
@@ -23,7 +23,7 @@ async function getProductByName(nome) {
 
 async function deleteProduct(id) {
   if (!productValidation.businessValidationDelete(id)) {
-    return { status: 422, message: "Product has plans activated" };
+    return { status: 400, message: "Product has plans activated" };
   } else {
     return await productRepository.deleteProduct(id);
   }

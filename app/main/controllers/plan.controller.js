@@ -5,9 +5,9 @@ async function createPlan(req, res, next) {
   try {
     const data = req.body;
     if (!planValidation.createPlanValidation(data)) {
-      return res.status(422).json({ message: "Missing variables" });
+      return res.status(400).json({ message: "Missing variables" });
     }
-    res.send(await planService.createPlan(data));
+    res.send({ id: (await planService.createPlan(data)).id });
   } catch (err) {
     next(err);
   }
@@ -43,7 +43,7 @@ async function updatePlan(req, res, next) {
   try {
     let data = req.body;
     if (!data.id) {
-      return res.status(422).json({ message: "id is missing" });
+      return res.status(400).json({ message: "id is missing" });
     }
     data = await planValidation.schemaValidationUpdate(data);
     res.send(await planService.updatePlan(data));

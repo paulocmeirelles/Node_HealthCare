@@ -5,9 +5,9 @@ async function createClient(req, res, next) {
   try {
     const data = req.body;
     if (!clientValidation.createClientValidation(data)) {
-      return res.status(422).json({ message: "Missing variables" });
+      return res.status(400).json({ message: "Missing variables" });
     }
-    res.send(await clientService.createClient(data));
+    res.send({ id: (await clientService.createClient(data)).id });
   } catch (err) {
     next(err);
   }
@@ -43,7 +43,7 @@ async function updateClient(req, res, next) {
   try {
     let data = req.body;
     if (!data.cpf) {
-      return res.status(422).json({ message: "cpf is missing" });
+      return res.status(400).json({ message: "cpf is missing" });
     }
     data = await clientValidation.schemaValidationUpdate(data);
     res.send(await clientService.updateClient(data));

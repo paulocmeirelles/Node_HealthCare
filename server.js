@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import { swaggerDocument } from "./doc/doc.js";
+import { swaggerDocument } from "./app/doc/doc.js";
 import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
 
@@ -9,6 +9,7 @@ import bodyParser from "body-parser";
 const app = express();
 
 // Routes
+// import associations from "./app/main/models/associations.js";
 import clientRoute from "./app/routes/client.route.js";
 import contributionRoute from "./app/routes/contribution.route.js";
 import planRoute from "./app/routes/plan.route.js";
@@ -34,7 +35,7 @@ app.use(express.json());
 app.use(cors());
 
 // Setting route to documentation
-app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Starting API
 app.listen(process.env.PORT, () =>

@@ -1,4 +1,4 @@
-import productRepository from "../../api/v1/repositories/product.repository";
+import productRepository from "../../api/v1/repositories/product.repository.js";
 import planRepository from "../../api/v1/repositories/plan.repository.js";
 
 function createProductValidation(data) {
@@ -62,13 +62,14 @@ async function schemaValidationUpdate(data) {
   data.carenciaEntreResgates
     ? data.carenciaEntreResgates
     : (data.carenciaEntreResgates = product.carenciaEntreResgates);
+  data.active ? data.active : (data.active = product.active);
   return data;
 }
 
 async function businessValidationCreate(nome) {
   const product = await productRepository.getProductByName(nome);
-  if (product.length > 0) {
-    return false;
+  if (product) {
+    return product.length > 0 ? false : true;
   } else {
     return true;
   }
@@ -76,8 +77,8 @@ async function businessValidationCreate(nome) {
 
 async function businessValidationDelete(id) {
   const plan = await planRepository.getPlanByIdProduct(id);
-  if (plan.length > 0) {
-    return false;
+  if (plan) {
+    return plan.length > 0 ? false : true;
   } else {
     return true;
   }

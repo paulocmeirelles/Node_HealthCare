@@ -9,6 +9,16 @@ function getAge(dateString) {
   return age;
 }
 
+function createContribution(data) {
+  const contribution = {
+    idCliente: data.idCliente,
+    idPlano: data.id,
+    valorAporte: data.aporte,
+  };
+  return contribution;
+}
+
 export default {
   getAge,
+  createContribution,
 };

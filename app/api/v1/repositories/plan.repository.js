@@ -20,7 +20,7 @@ async function createPlans(json) {
 async function getPlans() {
   try {
     return await Plan.findAll({
-      where: { activate: true },
+      where: { active: true },
     });
   } catch (err) {
     throw err;
@@ -78,7 +78,7 @@ async function deletePlan(id) {
   try {
     await Plan.update(
       {
-        activate: false,
+        active: false,
       },
       {
         where: {

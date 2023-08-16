@@ -13,11 +13,11 @@ function schemaValidationGet(data) {
 
 async function businessValidationWithdraw(data) {
   const plan = await planRepository.getPlan(data.idPlano);
-  if (plan.length == 0) {
+  if (!plan) {
     return { condition: false, reason: "This plan doesn't exist" };
   }
   const balance = await contributionRepository.getBalance(data.idPlano);
-  if (balance < data.valorResgate) {
+  if (balance.total < data.valorResgate) {
     return {
       condition: false,
       reason: "This plan doesn't have enough balance",
@@ -33,7 +33,7 @@ async function businessValidationWithdraw(data) {
       reason: "Wait more days to withdraw the money",
     };
   }
-  return true;
+  return { condition: true };
 }
 
 export default {
